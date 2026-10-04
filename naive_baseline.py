@@ -42,7 +42,7 @@ def main():
     llm_client = None
     if OPENAI_API_KEY:
         from openai import OpenAI
-        llm_client = OpenAI()
+        llm_client = OpenAI(api_key=OPENAI_API_KEY)
 
     for i, item in enumerate(test_set):
         results = search.search(item["question"], top_k=3, collection=NAIVE_COLLECTION)

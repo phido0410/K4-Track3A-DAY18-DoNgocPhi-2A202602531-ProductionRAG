@@ -36,8 +36,13 @@ def main():
     print("\n📌 STEP 2: Running Production Pipeline...")
     print("-" * 40)
     from src.pipeline import build_pipeline, evaluate_pipeline
-    search, reranker = build_pipeline()
-    prod_results = evaluate_pipeline(search, reranker)
+    built = build_pipeline()
+    if len(built) == 3:
+        search, reranker, parent_map = built
+        prod_results = evaluate_pipeline(search, reranker, parent_map=parent_map)
+    else:
+        search, reranker = built
+        prod_results = evaluate_pipeline(search, reranker)
 
     # Ensure reports are located in reports/
     for f in ["ragas_report.json", "naive_baseline_report.json"]:
